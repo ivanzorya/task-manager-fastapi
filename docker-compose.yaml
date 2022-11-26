@@ -1,0 +1,26 @@
+version: '3'
+volumes:
+  postgres_data:
+
+services:
+  web:
+    restart: on-failure
+    image: task-manager:latest
+    build:
+      context: ./app
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./app:/app
+
+  db:
+    image: postgres:12.4
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    ports:
+      - "5435:5432"
