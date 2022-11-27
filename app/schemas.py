@@ -8,14 +8,15 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    pass
+    password: str
 
 
 class User(UserCreate):
     uuid: uuid.UUID
 
-    class Config:
-        orm_mode = True
+
+class UserFromDb(UserBase):
+    uuid: uuid.UUID
 
 
 class TaskBase(BaseModel):
@@ -30,5 +31,11 @@ class TaskCreate(TaskBase):
 class Task(TaskCreate):
     uuid: uuid.UUID
 
-    class Config:
-        orm_mode = True
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    name: str | None = None

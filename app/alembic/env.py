@@ -1,11 +1,23 @@
+import os
 from logging.config import fileConfig
 
 from alembic import context
+from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
+
+load_dotenv("./.env")
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+section = config.config_ini_section
+
+config.set_section_option(section, "DB_NAME", os.environ.get("DB_NAME"))
+config.set_section_option(section, "POSTGRES_USER", os.environ.get("POSTGRES_USER"))
+config.set_section_option(section, "POSTGRES_PASSWORD", os.environ.get("POSTGRES_PASSWORD"))
+config.set_section_option(section, "DB_HOST", os.environ.get("DB_HOST"))
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

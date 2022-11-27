@@ -11,6 +11,7 @@ class User(Base):
 
     uuid = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     name = Column(String(50), nullable=False)
+    password = Column(String(100), nullable=False)
 
 
 class Task(Base):
