@@ -1,12 +1,12 @@
 from datetime import datetime, timedelta
 
-from config import Settings
-from database import database, users
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from schemas import TokenData, User
+from src.config import Settings
+from src.database import database, users
+from src.schemas import TokenData, User
 
 settings = Settings()
 

@@ -17,7 +17,11 @@ section = config.config_ini_section
 config.set_section_option(section, "DB_NAME", os.environ.get("DB_NAME"))
 config.set_section_option(section, "POSTGRES_USER", os.environ.get("POSTGRES_USER"))
 config.set_section_option(section, "POSTGRES_PASSWORD", os.environ.get("POSTGRES_PASSWORD"))
-config.set_section_option(section, "DB_HOST", os.environ.get("DB_HOST"))
+ENV = os.environ.get("ENV")
+
+config.set_section_option(section, "ENV", ENV)
+DB_HOST = os.environ.get("DB_HOST")
+config.set_section_option(section, "DB_HOST", "test-" + DB_HOST if ENV == "TEST" else DB_HOST)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -28,7 +32,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-import models
+import src.models as models
 
 target_metadata = models.Base.metadata
 

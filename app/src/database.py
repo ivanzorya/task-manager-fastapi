@@ -1,8 +1,8 @@
 import databases
 import sqlalchemy
-from config import Settings
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
+from src.config import Settings
 
 settings = Settings()
 
@@ -11,8 +11,12 @@ DB_NAME = settings.db_name
 POSTGRES_USER = settings.postgres_user
 POSTGRES_PASSWORD = settings.postgres_password
 DB_HOST = settings.db_host
+ENV = settings.env
 
-DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{DB_HOST}/{DB_NAME}"
+if ENV == "TEST":
+    DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@test-{DB_HOST}/{DB_NAME}"
+else:
+    DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{DB_HOST}/{DB_NAME}"
 
 database = databases.Database(DATABASE_URL)
 

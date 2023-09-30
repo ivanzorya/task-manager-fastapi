@@ -1,4 +1,4 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     postgres_user: str
     postgres_password: str
     db_host: str
+    env: str
 
     class Config:
         env_file = ".env"
